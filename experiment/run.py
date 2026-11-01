@@ -19,7 +19,7 @@ def main():
 
     n = a.samples * 1_000_000
     t0 = time.time()
-    with mp.Pool(2) as pool:                      # 免费 runner 是 2 核
+    with mp.Pool(os.cpu_count() or 2) as pool:   # 自适应核数
         results = pool.map(estimate_pi, [n, n])
     total = 2 * n
     pi = 4 * sum(results) / total
